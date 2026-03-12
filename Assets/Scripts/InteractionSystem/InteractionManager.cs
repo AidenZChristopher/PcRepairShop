@@ -11,7 +11,7 @@ public class InteractionManager : MonoBehaviour
     [SerializeField] private HUDPrompt hudPrompt;
 
     private IInteractable currentInteractable;
-    private InputAction interactAction;
+    private InputAction pickUpAction;
 
     //  Start   //
     /*
@@ -19,8 +19,8 @@ public class InteractionManager : MonoBehaviour
     */
     void Start()
     {
-        interactAction = new InputAction(type: InputActionType.Button, binding: "<Keyboard>/e");
-        interactAction.Enable();
+        pickUpAction = new InputAction(type: InputActionType.Button, binding: "<Keyboard>/e");
+        pickUpAction.Enable();
     }
 
     //  On Destroy  //
@@ -29,24 +29,26 @@ public class InteractionManager : MonoBehaviour
     */
     void OnDestroy()
     {
-        interactAction.Disable();
-        interactAction.Dispose();
+        pickUpAction.Disable();
+        pickUpAction.Dispose();
     }
 
     //  Update  //
     /*
-        Find closest interactable
-        Check if action key is pressed
-        Trigger interact
+        find closet interactable
+        Check if pickUpAction was pressed
+        Interact with object
     */
     void Update()
     {
         FindClosestInteractable();
-
-        if (currentInteractable == null) return;
-
-        if (interactAction.WasPressedThisFrame())
-            TriggerInteract();
+         if (pickUpAction.WasPressedThisFrame())
+        {
+            if (currentInteractable == null) InventoryManager.Instance.AttemptDrop();
+            else TriggerInteract();
+        }
+        
+    
     }
 
     //  Find Closest Interactable   //
