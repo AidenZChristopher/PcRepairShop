@@ -13,7 +13,6 @@ public class InteractionManager : MonoBehaviour
 
     private IInteractable currentInteractable;
     private string interactKeyDisplay;
-    void OnEnable() => interactKey.Enable();
     void OnDisable() => interactKey.Disable();
 
     //  Update  //
@@ -22,6 +21,13 @@ public class InteractionManager : MonoBehaviour
         Check if interactKey was pressed
         Interact with object
     */
+    void Start()
+    {
+        interactKey.Enable();
+        Debug.Log(interactKey.GetBindingDisplayString());
+        interactKeyDisplay = interactKey.GetBindingDisplayString();
+    }
+
     void Update()
     {
         FindClosestInteractable();
@@ -89,9 +95,8 @@ public class InteractionManager : MonoBehaviour
     void ShowPrompts()
     {
         playerPrompt.DisplayPlayerPrompt(currentInteractable.GetPromptText);
-        hudPrompt.DisplayHUDPrompt(interactKeyDisplay, currentInteractable.GetPromptText);
+        hudPrompt.DisplayHUDPrompt(keyDisplay, currentInteractable.GetPromptText);
     }
-
     //  Hide Prompts    //
     /*
         Hide PlayerPrompt
