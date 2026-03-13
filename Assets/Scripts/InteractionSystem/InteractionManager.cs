@@ -9,46 +9,27 @@ public class InteractionManager : MonoBehaviour
     [SerializeField] private LayerMask interactableLayer;
     [SerializeField] private PlayerPrompt playerPrompt;
     [SerializeField] private HUDPrompt hudPrompt;
+    [SerializeField] private InputAction interactKey;
 
     private IInteractable currentInteractable;
-    private InputAction pickUpAction;
-
-    //  Start   //
-    /*
-        Create and enable interact input action
-    */
-    void Start()
-    {
-        pickUpAction = new InputAction(type: InputActionType.Button, binding: "<Keyboard>/e");
-        pickUpAction.Enable();
-    }
-
-    //  On Destroy  //
-    /*
-        Disable and dispose interact input action
-    */
-    void OnDestroy()
-    {
-        pickUpAction.Disable();
-        pickUpAction.Dispose();
-    }
+    private string interactKeyDisplay;
+    void OnEnable() => interactKey.Enable();
+    void OnDisable() => interactKey.Disable();
 
     //  Update  //
     /*
         find closet interactable
-        Check if pickUpAction was pressed
+        Check if interactKey was pressed
         Interact with object
     */
     void Update()
     {
         FindClosestInteractable();
-         if (pickUpAction.WasPressedThisFrame())
+         if (interactKey.WasPressedThisFrame())
         {
             if (currentInteractable == null) InventoryManager.Instance.AttemptDrop();
             else TriggerInteract();
         }
-        
-    
     }
 
     //  Find Closest Interactable   //
@@ -108,7 +89,7 @@ public class InteractionManager : MonoBehaviour
     void ShowPrompts()
     {
         playerPrompt.DisplayPlayerPrompt(currentInteractable.GetPromptText);
-        hudPrompt.DisplayHUDPrompt(currentInteractable.GetActionKey, currentInteractable.GetPromptText);
+        hudPrompt.DisplayHUDPrompt(interactKeyDisplay, currentInteractable.GetPromptText);
     }
 
     //  Hide Prompts    //

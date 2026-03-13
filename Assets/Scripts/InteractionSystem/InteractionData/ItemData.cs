@@ -27,11 +27,9 @@ public class ItemData : MonoBehaviour, IInteractable
 {
     //  Inspector Settings  //
     [SerializeField] private string promptText = "Pick Up";
-    [SerializeField] private string actionKey = "E";
 
     //  IInteractable Properties    //
     public string GetPromptText => promptText;
-    public string GetActionKey => actionKey;
     public void Interact()
     {
         Debug.Log($"[ItemData] Picked Up Item");
