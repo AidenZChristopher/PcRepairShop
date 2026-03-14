@@ -12,8 +12,19 @@ public class InteractionManager : MonoBehaviour
     [SerializeField] private InputAction interactKey;
 
     private IInteractable currentInteractable;
-    private string interactKeyDisplay;
+    private string displayInteractKey;
+    void Awake()
+    {
+        interactKey.Enable();
+        displayInteractKey = interactKey.GetBindingDisplayString();
+        Debug.Log($"{displayInteractKey}");
+    }
     void OnDisable() => interactKey.Disable();
+    void Start()
+    {
+        Debug.Log($"Start {displayInteractKey}");
+
+    }
 
     //  Update  //
     /*
@@ -21,13 +32,6 @@ public class InteractionManager : MonoBehaviour
         Check if interactKey was pressed
         Interact with object
     */
-    void Start()
-    {
-        interactKey.Enable();
-        Debug.Log(interactKey.GetBindingDisplayString());
-        interactKeyDisplay = interactKey.GetBindingDisplayString();
-    }
-
     void Update()
     {
         FindClosestInteractable();
@@ -69,7 +73,11 @@ public class InteractionManager : MonoBehaviour
             currentInteractable = closest;
 
             if (currentInteractable != null)
+            {
+                Debug.Log($"{displayInteractKey}");
                 ShowPrompts();
+            }
+
             else
                 HidePrompts();
         }
@@ -95,7 +103,7 @@ public class InteractionManager : MonoBehaviour
     void ShowPrompts()
     {
         playerPrompt.DisplayPlayerPrompt(currentInteractable.GetPromptText);
-        hudPrompt.DisplayHUDPrompt(keyDisplay, currentInteractable.GetPromptText);
+        hudPrompt.DisplayHUDPrompt(displayInteractKey, currentInteractable.GetPromptText);
     }
     //  Hide Prompts    //
     /*
