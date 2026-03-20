@@ -125,3 +125,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 646df1740709b8b41ab235131e05f375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PickupItem
+  promptText: Pick Up Case
+  icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}

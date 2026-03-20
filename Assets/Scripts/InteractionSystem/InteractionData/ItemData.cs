@@ -27,9 +27,11 @@ public class ItemData : MonoBehaviour, IInteractable
 {
     //  Inspector Settings  //
     [SerializeField] private string promptText = "Pick Up Case";
+    [SerializeField] private Sprite icon;
 
     //  IInteractable Properties    //
     public string GetPromptText => promptText;
+    public Sprite Icon => icon;
     public void Interact()
     {
         Debug.Log($"[ItemData] Picked Up Item");

@@ -4,15 +4,14 @@ public class InventoryManager : MonoBehaviour
 {
     //  Public global variable that refrences this class. 
     //  This allows any script to refrence this class without adding it to the inspector window.
-    public static InventoryManager Instance { get; private set; }   
+    public static InventoryManager Instance { get; private set; }
     [SerializeField] private int maxInventorySlots = 2;
-    [SerializeField] private float dropOffset = 1f; 
+    [SerializeField] private float dropOffset = 1f;
     private ItemData[] inventory;    // Array named inventory that stores ItemData
-    private int activeSlotIndex = 0; 
+    private int activeSlotIndex = 0;
     private int secondarySlotIndex = 1;
 
-
-     //  Awake   //
+    //  Awake   //
     /*
         Set up Instance / singleton
         Set up inventory array
@@ -28,15 +27,23 @@ public class InventoryManager : MonoBehaviour
 
         inventory = new ItemData[maxInventorySlots];
     }
-    
+
     //  Update  //
     /*
-    Checks if keys 1/2 are pressed and swaps the activeSlot accordingly
+        Checks if keys 1/2 are pressed and swaps the activeSlot accordingly
     */
     void Update()
     {
-        if (UnityEngine.InputSystem.Keyboard.current.digit1Key.wasPressedThisFrame) SetActiveSlot(0);
-        if (UnityEngine.InputSystem.Keyboard.current.digit2Key.wasPressedThisFrame) SetActiveSlot(1);
+        if (UnityEngine.InputSystem.Keyboard.current.digit1Key.wasPressedThisFrame)
+        {
+            SetActiveSlot(0);
+            InventoryHUD.Instance.Refresh();
+        }
+        if (UnityEngine.InputSystem.Keyboard.current.digit2Key.wasPressedThisFrame)
+        {
+            SetActiveSlot(1);
+            InventoryHUD.Instance.Refresh();
+        }
     }
 
     //  SetActiveSlot   //
@@ -54,13 +61,13 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    // AttemptToAdd  //
+    //  AttemptAdd  //
     /*
         Check if active slot is empty 
             Add item to inventory
-        check if secondaySlot is empty
+        Check if secondary slot is empty
             Add item to inventory
-        else Debug Statement Inventory is full
+        Else debug inventory is full
     */
     public void AttemptAdd(ItemData item)
     {
@@ -74,6 +81,7 @@ public class InventoryManager : MonoBehaviour
         inventory[inventoryIndex] = item;
         item.gameObject.SetActive(false); //hide object in world
         Debug.Log($"[InventoryManager] Added {item.name} to slot {inventoryIndex}");
+        InventoryHUD.Instance.Refresh();
     }
 
     public void AttemptDrop()
@@ -89,5 +97,10 @@ public class InventoryManager : MonoBehaviour
         item.transform.position = transform.position + transform.forward * dropOffset; // drop in front of player
         inventory[inventoryIndex] = null;
         Debug.Log($"[InventoryManager] Dropped {item.name} from slot {inventoryIndex}");
+        InventoryHUD.Instance.Refresh();
     }
+
+    //  Accessors for InventoryHUD  //
+    public int GetActiveSlotIndex() => activeSlotIndex;
+    public ItemData GetItemAt(int index) => inventory[index];
 }
