@@ -18,15 +18,13 @@ using UnityEngine;
     Store Item Data: 
         Name, 
         Sprite Icon, 
-        GameObject,
         promptText,
-        actionKey,
 */
 
 public class ItemData : MonoBehaviour, IInteractable
 {
     //  Inspector Settings  //
-    [SerializeField] private string promptText = "Pick Up Case";
+    [SerializeField] private string promptText;
     [SerializeField] private Sprite icon;
 
     //  IInteractable Properties    //
