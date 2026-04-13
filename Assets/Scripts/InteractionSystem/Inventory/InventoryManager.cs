@@ -94,7 +94,11 @@ public class InventoryManager : MonoBehaviour
     {
         ItemData item = inventory[inventoryIndex];
         item.gameObject.SetActive(true);
-        item.transform.position = transform.position + transform.forward * dropOffset; // drop in front of player
+        item.transform.position = new Vector3(
+            transform.position.x + transform.forward.x * dropOffset, 
+            item.GroundOffset, 
+            transform.position.z + transform.forward.z * dropOffset
+            );
         inventory[inventoryIndex] = null;
         Debug.Log($"[InventoryManager] Dropped {item.name} from slot {inventoryIndex}");
         InventoryHUD.Instance.Refresh();

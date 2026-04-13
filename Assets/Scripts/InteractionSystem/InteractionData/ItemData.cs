@@ -26,6 +26,8 @@ public class ItemData : MonoBehaviour, IInteractable
     //  Inspector Settings  //
     [SerializeField] private string promptText;
     [SerializeField] private Sprite icon;
+    [SerializeField] private float groundOffset = .25f; //default offset value
+    public float GroundOffset => groundOffset;
 
     //  IInteractable Properties    //
     public string GetPromptText => promptText;
