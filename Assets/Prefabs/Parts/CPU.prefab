@@ -68,7 +68,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 420e6cc8c2e19804596704ff3d198ead, type: 2}
+  - {fileID: 2100000, guid: bdf6c7291cd45c646bd3722b81dacc67, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -127,4 +127,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PickupItem
   promptText: Pick Up CPU
   icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-  groundOffset: 0.5
+  groundOffset: 0.18

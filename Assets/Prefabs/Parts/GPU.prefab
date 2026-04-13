@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 4.3684893, y: 0.9999999, z: -4.5214777}
-  m_LocalScale: {x: 0.5, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 0.8, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -68,7 +68,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4b55b19cef89c044e90c6762beb36802, type: 2}
+  - {fileID: 2100000, guid: ea9b837266261c64881e699279a10bb0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -127,4 +127,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PickupItem
   promptText: Pick Up Graphics Card
   icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-  groundOffset: 0.1
+  groundOffset: 0.25
