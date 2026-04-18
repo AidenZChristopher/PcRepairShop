@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private GameObject playerMesh;
+
     private Rigidbody rb;
 
     private float movementX;
@@ -75,5 +77,17 @@ public class PlayerController : MonoBehaviour
                 rotationSpeed * Time.fixedDeltaTime
             ));
         }
+    }
+    //Allows for freezing of playermovement. Called during workbench interaction
+    public void SetMovementEnabled(bool enabled)
+    {
+        this.enabled = enabled;
+        rb.linearVelocity = Vector3.zero; // clear any momentum on lock
+        animator.SetBool("isMoving", false); // reset animation state
+    }
+
+    public void SetVisibility(bool visible) // Activates/deactives playerMesh
+    {
+        playerMesh.SetActive(visible);
     }
 }

@@ -3,8 +3,10 @@ using UnityEngine;
 public class WorkBenchInteraction : MonoBehaviour, IInteractable
 {
     //  Inspector Settings  //
+    [SerializeField] private PlayerController playerController;
     [SerializeField] private string promptText = "Work at Table";
-    [SerializeField] private CameraManager cameraManager;
+    private bool workbenchInteraction = false;
+
 
     //  IInteractable Properties    //
     public string GetPromptText => promptText;
@@ -17,7 +19,27 @@ public class WorkBenchInteraction : MonoBehaviour, IInteractable
     */
     public void Interact()
     {
-        cameraManager.EnterWorkbench();
-        Debug.Log($"[WorkBenchInteraction] Working at Table");
+        if (!workbenchInteraction)
+        {
+            CameraManager.Instance.EnterWorkbench();
+            workbenchInteraction = true;
+
+            playerController.SetMovementEnabled(false); //disable player movements
+            playerController.SetVisibility(false);  //removes PlayerModel
+
+            Debug.Log($"[WorkBenchInteraction] Working at Table");
+        }
+        else
+        {
+            CameraManager.Instance.ExitWorkbench();
+            workbenchInteraction = false;
+
+            playerController.SetMovementEnabled(true); //allows playermovement
+            playerController.SetVisibility(true); //Activates player model
+
+            Debug.Log($"[WorkBenchInteraction] leaving Table");
+        }
     }
+
+    
 }
