@@ -4,7 +4,7 @@ public class WorkBenchInteraction : MonoBehaviour, IInteractable
 {
     //  Inspector Settings  //
     [SerializeField] private string promptText = "Work at Table";
-    [SerializeField] private CameraController cameraController;
+    [SerializeField] private CameraManager cameraManager;
 
     //  IInteractable Properties    //
     public string GetPromptText => promptText;
@@ -17,7 +17,7 @@ public class WorkBenchInteraction : MonoBehaviour, IInteractable
     */
     public void Interact()
     {
-        cameraController.EnterWorkbench();
+        cameraManager.EnterWorkbench();
         Debug.Log($"[WorkBenchInteraction] Working at Table");
     }
 }
