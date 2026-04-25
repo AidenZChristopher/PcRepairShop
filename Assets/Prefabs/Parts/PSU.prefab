@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9087461345260872054}
   - component: {fileID: 2632815642104531778}
   m_Layer: 6
-  m_Name: GPU
+  m_Name: PSU
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 4.3684893, y: 0.9999999, z: -4.5214777}
-  m_LocalScale: {x: 0.8, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 0.56, y: 0.4, z: 0.56}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -68,7 +68,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ea9b837266261c64881e699279a10bb0, type: 2}
+  - {fileID: 2100000, guid: c1aac1030bf276e4da907bbd1c350f17, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -125,6 +125,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 646df1740709b8b41ab235131e05f375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PickupItem
-  promptText: Pick Up Graphics Card
+  promptText: Pick Up Power Supply Unit
   icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-  groundOffset: 0.18
+  groundOffset: 0.15
