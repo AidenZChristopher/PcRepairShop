@@ -30,9 +30,6 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
-        Debug.Log($"[PlayerController] Animator state on Start: {animator.GetCurrentAnimatorStateInfo(0).IsName("Idle")}");
-        Debug.Log($"[PlayerController] isMoving param on Start: {animator.GetBool("isMoving")}");
-
     }
 
     void OnMove(InputValue movementValue)
