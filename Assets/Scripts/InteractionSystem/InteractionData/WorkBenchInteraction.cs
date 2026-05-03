@@ -5,7 +5,8 @@ public class WorkBenchInteraction : MonoBehaviour, IInteractable
     //  Inspector Settings  //
     [SerializeField] private PlayerController playerController;
     [SerializeField] private string promptText = "Work at Table";
-        [SerializeField] private WorkbenchSlot[] slots; 
+    [SerializeField] private GameObject playerPromptCanvas;
+    [SerializeField] private WorkbenchSlot[] slots; 
 
     private bool workbenchInteraction = false;
 
@@ -28,6 +29,7 @@ public class WorkBenchInteraction : MonoBehaviour, IInteractable
 
             playerController.SetMovementEnabled(false); //disable player movements
             playerController.SetVisibility(false);  //removes PlayerModel
+            playerPromptCanvas.SetActive(false);
 
             Debug.Log($"[WorkBenchInteraction] Working at Table");
         }
@@ -38,6 +40,7 @@ public class WorkBenchInteraction : MonoBehaviour, IInteractable
 
             playerController.SetMovementEnabled(true); //allows playermovement
             playerController.SetVisibility(true); //Activates player model
+            playerPromptCanvas.SetActive(true);
 
             Debug.Log($"[WorkBenchInteraction] leaving Table");
         }
