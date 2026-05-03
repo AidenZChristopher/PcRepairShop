@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
 
     public bool rotateToFaceMovement = true;
     public float rotationSpeed = 10f;
+    private bool movementLocked = false;
 
     void Awake()
     {
@@ -34,6 +35,14 @@ public class PlayerController : MonoBehaviour
 
     void OnMove(InputValue movementValue)
     {
+
+        if (movementLocked)
+        {
+            movementX = 0f;
+            movementY = 0f;
+            return;
+        }
+
         Vector2 movementVector = movementValue.Get<Vector2>();
         movementX = movementVector.x;
         movementY = movementVector.y;
@@ -53,12 +62,19 @@ public class PlayerController : MonoBehaviour
         {
             isMoving = false;
             Debug.Log("[PlayerController] Playing Idle animation");
-            animator.SetBool("isMoving", false);        
+            animator.SetBool("isMoving", false);
         }
     }
 
     void FixedUpdate()
     {
+        // Guard first
+        if (movementLocked)
+        {
+            rb.linearVelocity = Vector3.zero;
+            return;
+        }
+
         Vector3 movement = new Vector3(movementX, 0.0f, movementY);
 
         rb.linearVelocity = new Vector3(
@@ -77,16 +93,29 @@ public class PlayerController : MonoBehaviour
             ));
         }
     }
-    //Allows for freezing of playermovement. Called during workbench interaction
-    public void SetMovementEnabled(bool enabled)
+/*============================================================
+ * Locks/unlocks player movement 
+ *============================================================*/
+public void SetMovementEnabled(bool enabled)
     {
-        this.enabled = enabled;
-        rb.linearVelocity = Vector3.zero; // clear any momentum on lock
-        animator.SetBool("isMoving", false); // reset animation state
+        movementLocked = enabled == false; // true = locked
+
+        // Clear velocity and input so player doesn't slide
+        rb.linearVelocity = Vector3.zero;
+        movementX = 0f;
+        movementY = 0f;
+
+        // Reset animation to idle cleanly
+        isMoving = false;
+        animator.SetBool("isMoving", false);
     }
 
-    public void SetVisibility(bool visible) // Activates/deactives playerMesh
+/*============================================================
+ * Toggles renderer only while keeping Animator and scripts active
+ *============================================================*/
+public void SetVisibility(bool visible)
     {
-        playerMesh.SetActive(visible);
+        foreach (var r in playerMesh.GetComponentsInChildren<SkinnedMeshRenderer>())
+        r.enabled = visible;
     }
 }
