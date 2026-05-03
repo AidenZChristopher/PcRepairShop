@@ -5,6 +5,8 @@ public class WorkBenchInteraction : MonoBehaviour, IInteractable
     //  Inspector Settings  //
     [SerializeField] private PlayerController playerController;
     [SerializeField] private string promptText = "Work at Table";
+        [SerializeField] private WorkbenchSlot[] slots; 
+
     private bool workbenchInteraction = false;
 
 
@@ -41,5 +43,46 @@ public class WorkBenchInteraction : MonoBehaviour, IInteractable
         }
     }
 
-    
+void Update()
+{
+    if (!workbenchInteraction) return;
+    if (!UnityEngine.InputSystem.Keyboard.current.fKey.wasPressedThisFrame) return;
+
+    TryDropEquippedItem();
+}
+
+    /// Pulls the equipped item from InventoryManager and places it at the first available slot on the table.
+    private void TryDropEquippedItem()
+    {
+        GameObject equippedItem = InventoryManager.Instance.GetEquippedItem();
+
+        if (equippedItem == null)
+        {
+            Debug.Log("[WorkBenchInteraction] No item equipped to drop.");
+            return;
+        }
+
+        WorkbenchSlot availableSlot = GetFirstOpenSlot();
+
+        if (availableSlot == null)
+        {
+            Debug.Log("[WorkBenchInteraction] No open slots on the table.");
+            return;
+        }
+
+        availableSlot.PlaceItem(equippedItem);
+        InventoryManager.Instance.RemoveEquippedItem();
+
+        Debug.Log($"[WorkBenchInteraction] Dropped {equippedItem.name} onto table.");
+    }
+
+    //Gets the first open slot on the workbench, returns null if all slots are occupied
+    private WorkbenchSlot GetFirstOpenSlot()
+    {
+        foreach (WorkbenchSlot slot in slots)
+        {
+            if (!slot.isOccupied) return slot;
+        }
+        return null;
+    }
 }

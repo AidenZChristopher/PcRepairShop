@@ -107,4 +107,24 @@ public class InventoryManager : MonoBehaviour
     //  Accessors for InventoryHUD  //
     public int GetActiveSlotIndex() => activeSlotIndex;
     public ItemData GetItemAt(int index) => inventory[index];
+
+    
+    //Returns the GameObject of the item in the active slot
+ 
+    public GameObject GetEquippedItem()
+    {
+        ItemData item = inventory[activeSlotIndex];
+        if (item == null) return null;
+        return item.gameObject;
+    }
+    
+    // Removes the active slot item from inventory after workbench drop
+    public void RemoveEquippedItem()
+    {
+        inventory[activeSlotIndex] = null;
+        InventoryHUD.Instance.Refresh();
+        Debug.Log("[InventoryManager] Removed equipped item for workbench drop.");
+    }
+
 }
+
