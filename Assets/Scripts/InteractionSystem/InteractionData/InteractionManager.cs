@@ -58,7 +58,8 @@ public class InteractionManager : MonoBehaviour
 
         foreach (var hit in hits)
         {
-            if (!hit.TryGetComponent<IInteractable>(out var interactable)) continue;
+            var interactable = hit.GetComponentInParent<IInteractable>();
+            if (interactable == null) continue;
 
             float dist = Vector3.Distance(detectionPoint, hit.transform.position);
             if (dist < closestDist)

@@ -7,9 +7,20 @@ public class WorkbenchSlot : MonoBehaviour
 
     public void PlaceItem(GameObject item)
     {
-        item.SetActive(true); // re-enable object in world
+        item.SetActive(true);
         item.transform.position = transform.position;
         item.transform.rotation = Quaternion.identity;
+
+        if (item.TryGetComponent<ItemData>(out var itemData))
+            itemData.enabled = false;
+
+        if (item.TryGetComponent<DraggablePart>(out var part))
+        {
+            part.SetCurrentSlot(this);
+            var workbench = FindFirstObjectByType<WorkBenchInteraction>();
+            if (workbench != null) part.SetWorkbenchCam(workbench.WorkbenchCamera);
+        }
+
         occupyingItem = item;
         isOccupied = true;
     }

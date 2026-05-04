@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 4587753870259051029}
   - component: {fileID: 9087461345260872054}
   - component: {fileID: 2632815642104531778}
+  - component: {fileID: 8996079659122494669}
+  - component: {fileID: -4441923828602265811}
   m_Layer: 6
   m_Name: CPU
   m_TagString: Untagged
@@ -128,3 +130,33 @@ MonoBehaviour:
   promptText: Pick Up CPU
   icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   groundOffset: 0.13
+--- !u!114 &8996079659122494669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3903076729602751242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67dd5dfbee7aea548b3de7f1cf224bc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DraggablePart
+  tableLayer:
+    serializedVersion: 2
+    m_Bits: 128
+--- !u!114 &-4441923828602265811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3903076729602751242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f74cafb51d789343a582dac55c8eb7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SnapPartner
+  snapTarget: {fileID: 3903076729602751242, guid: c42eebffac543f241852e5099dae52bb, type: 3}
+  snapRadius: 0.5
+  snapOffset: {x: 2, y: 0, z: 0}

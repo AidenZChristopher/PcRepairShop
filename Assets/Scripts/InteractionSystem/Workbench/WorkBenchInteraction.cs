@@ -6,6 +6,7 @@ public class WorkBenchInteraction : MonoBehaviour, IInteractable
     [SerializeField] private PlayerController playerController;
     [SerializeField] private string promptText = "Work at Table";
     [SerializeField] private GameObject playerPromptCanvas;
+    [SerializeField] private Camera workbenchCamera;
     [SerializeField] private WorkbenchSlot[] slots; 
 
     private bool workbenchInteraction = false;
@@ -13,6 +14,7 @@ public class WorkBenchInteraction : MonoBehaviour, IInteractable
 
     //  IInteractable Properties    //
     public string GetPromptText => promptText;
+    public Camera WorkbenchCamera => workbenchCamera;
 
     //  Interact    //
     /*
@@ -30,6 +32,7 @@ public class WorkBenchInteraction : MonoBehaviour, IInteractable
             playerController.SetMovementEnabled(false); //disable player movements
             playerController.SetVisibility(false);  //removes PlayerModel
             playerPromptCanvas.SetActive(false);
+            NotifyDraggableParts(workbenchCamera); // pass cam to parts
 
             Debug.Log($"[WorkBenchInteraction] Working at Table");
         }
@@ -41,6 +44,7 @@ public class WorkBenchInteraction : MonoBehaviour, IInteractable
             playerController.SetMovementEnabled(true); //allows playermovement
             playerController.SetVisibility(true); //Activates player model
             playerPromptCanvas.SetActive(true);
+            NotifyDraggableParts(null); // clear cam on exit
 
             Debug.Log($"[WorkBenchInteraction] leaving Table");
         }
@@ -87,5 +91,16 @@ void Update()
             if (!slot.isOccupied) return slot;
         }
         return null;
+    }
+
+    //Passes the workbench camera to all parts currently on the table
+    private void NotifyDraggableParts(Camera cam)
+    {
+        foreach (WorkbenchSlot slot in slots)
+        {
+            if (slot.occupyingItem == null) continue;
+            if (slot.occupyingItem.TryGetComponent<DraggablePart>(out var part))
+                part.SetWorkbenchCam(cam);
+        }
     }
 }
