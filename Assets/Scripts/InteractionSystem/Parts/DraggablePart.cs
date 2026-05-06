@@ -1,7 +1,6 @@
 /*============================================================
  * DraggablePart.cs
  * Handles click-and-drag for parts sitting on the workbench.
- * Attach to each item GameObject that can be dragged.
  *============================================================*/
 using UnityEngine;
 
@@ -10,8 +9,15 @@ public class DraggablePart : MonoBehaviour
     [SerializeField] private LayerMask tableLayer;
 
     private bool isDragging = false;
+    private bool isSnapped = false;
     private Camera workbenchCam;
     private WorkbenchSlot currentSlot;
+    private SnapPoint snapPoint;
+
+    void Awake()
+    {
+        snapPoint = GetComponentInChildren<SnapPoint>();
+    }
 
     public void SetWorkbenchCam(Camera cam) => workbenchCam = cam;
     public void SetCurrentSlot(WorkbenchSlot slot) => currentSlot = slot;
@@ -42,16 +48,29 @@ public class DraggablePart : MonoBehaviour
         if (isDragging && UnityEngine.InputSystem.Mouse.current.leftButton.isPressed)
             DragToMouse();
 
-        // release -- drop
+        // release -- check for snap then drop
         if (isDragging && UnityEngine.InputSystem.Mouse.current.leftButton.wasReleasedThisFrame)
             StopDrag();
+
+        // right click -- unsnap
+        if (isSnapped && UnityEngine.InputSystem.Mouse.current.rightButton.wasPressedThisFrame)
+        {
+            Ray ray = workbenchCam.ScreenPointToRay(
+                UnityEngine.InputSystem.Mouse.current.position.ReadValue()
+            );
+
+            if (Physics.Raycast(ray, out RaycastHit hit) && hit.collider.gameObject == gameObject)
+                Unsnap();
+        }
     }
 
     /*------------------------------------------------------------
-     * StartDrag
+     * StartDrag -- blocks drag if snapped
      *------------------------------------------------------------*/
     void StartDrag()
     {
+        if (isSnapped) return;
+
         isDragging = true;
 
         if (currentSlot != null)
@@ -79,11 +98,31 @@ public class DraggablePart : MonoBehaviour
     }
 
     /*------------------------------------------------------------
-     * StopDrag
+     * StopDrag -- snaps if SnapPoint is touching compatible partner
      *------------------------------------------------------------*/
     void StopDrag()
     {
         isDragging = false;
-        Debug.Log($"[DraggablePart] Dropped {gameObject.name}");
+
+        if (snapPoint != null && snapPoint.IsTouching && snapPoint.CurrentPartner != null)
+        {
+            // snap to partner's parent item position
+            transform.position = snapPoint.CurrentPartner.transform.parent.position;
+            isSnapped = true;
+            Debug.Log($"[DraggablePart] Snapped {gameObject.name}");
+        }
+        else
+        {
+            Debug.Log($"[DraggablePart] Dropped {gameObject.name} -- not touching compatible partner");
+        }
+    }
+
+    /*------------------------------------------------------------
+     * Unsnap -- right click to release
+     *------------------------------------------------------------*/
+    void Unsnap()
+    {
+        isSnapped = false;
+        Debug.Log($"[DraggablePart] Unsnapped {gameObject.name}");
     }
 }
