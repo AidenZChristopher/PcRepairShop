@@ -7,9 +7,10 @@ using UnityEngine;
 
 public class SnapPoint : MonoBehaviour
 {
-    [SerializeField] private PartType partType;         // this item's type
+    [SerializeField] private PartType partType;         //item's type
     [SerializeField] private PartType compatibleType;   // the type it snaps to
-
+    [SerializeField] private Vector3 snapOffset = Vector3.zero;
+    public Vector3 SnapOffset => snapOffset;
     private SnapPoint currentPartner = null;
     private bool isTouching = false;
 
@@ -23,6 +24,8 @@ public class SnapPoint : MonoBehaviour
      *------------------------------------------------------------*/
     void OnTriggerEnter(Collider other)
     {
+        if (isTouching) return;
+
         SnapPoint other_snapPoint = other.GetComponent<SnapPoint>();
         if (other_snapPoint == null) return;
         if (other_snapPoint.PartType != compatibleType) return;
@@ -41,5 +44,14 @@ public class SnapPoint : MonoBehaviour
         currentPartner = null;
         isTouching = false;
         Debug.Log($"[SnapPoint] {gameObject.name} separated from {other.gameObject.name}");
+    }
+    void OnDrawGizmos()
+    {
+        BoxCollider box = GetComponent<BoxCollider>();
+        if (box == null) return;
+
+        Gizmos.color = Color.red;
+        Gizmos.matrix = transform.localToWorldMatrix;
+        Gizmos.DrawWireCube(box.center, box.size);
     }
 }

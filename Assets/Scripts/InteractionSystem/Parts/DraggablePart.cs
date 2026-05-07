@@ -1,3 +1,4 @@
+//Claude AI was used to debug this code. All debugging suggestions were understood and implemented by the developer.
 /*============================================================
  * DraggablePart.cs
  * Handles click-and-drag for parts sitting on the workbench.
@@ -13,10 +14,14 @@ public class DraggablePart : MonoBehaviour
     private Camera workbenchCam;
     private WorkbenchSlot currentSlot;
     private SnapPoint snapPoint;
+    private Transform previousParent = null;
+    private Vector3 originalScale; // added
 
     void Awake()
     {
         snapPoint = GetComponentInChildren<SnapPoint>();
+        previousParent = transform.parent;
+        originalScale = transform.localScale; // added
     }
 
     public void SetWorkbenchCam(Camera cam) => workbenchCam = cam;
@@ -106,10 +111,24 @@ public class DraggablePart : MonoBehaviour
 
         if (snapPoint != null && snapPoint.IsTouching && snapPoint.CurrentPartner != null)
         {
-            // snap to partner's parent item position
-            transform.position = snapPoint.CurrentPartner.transform.parent.position;
+            Transform partnerParent = snapPoint.CurrentPartner.transform.parent;
+            if (partnerParent == null)
+            {
+                Debug.LogError($"[DraggablePart] Partner SnapPoint has no parent.");
+                return;
+            }
+
+            Vector3 targetWorldPos = snapPoint.CurrentPartner.transform.position + snapPoint.SnapOffset;
+
+            transform.SetParent(partnerParent, true);
+
+            transform.position = targetWorldPos;
+
+            transform.localRotation = Quaternion.identity;
+            transform.localScale = originalScale;
+
             isSnapped = true;
-            Debug.Log($"[DraggablePart] Snapped {gameObject.name}");
+            Debug.Log($"[DraggablePart] Snapped {gameObject.name} to {snapPoint.CurrentPartner.gameObject.name}");
         }
         else
         {
@@ -122,6 +141,8 @@ public class DraggablePart : MonoBehaviour
      *------------------------------------------------------------*/
     void Unsnap()
     {
+        transform.SetParent(previousParent);
+        transform.localScale = originalScale; // reset scale on unsnap too
         isSnapped = false;
         Debug.Log($"[DraggablePart] Unsnapped {gameObject.name}");
     }

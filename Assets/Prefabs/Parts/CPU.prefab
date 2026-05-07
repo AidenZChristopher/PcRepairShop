@@ -131,6 +131,7 @@ MonoBehaviour:
   promptText: Pick Up CPU
   icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   groundOffset: 0.13
+  placementRotation: {x: 0, y: 0, z: 0}
 --- !u!114 &8996079659122494669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,7 +186,7 @@ GameObject:
   - component: {fileID: 618840696150825247}
   - component: {fileID: 5937271357291551019}
   m_Layer: 2
-  m_Name: DetectionZone
+  m_Name: SnapPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -241,3 +242,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SnapPoint
   partType: 1
   compatibleType: 2
+  snapOffset: {x: 0, y: 0.3, z: 0}
