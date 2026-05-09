@@ -25,7 +25,12 @@ public class WorkbenchSlot : MonoBehaviour
         {
             part.SetCurrentSlot(this);
             var workbench = FindFirstObjectByType<WorkBenchInteraction>();
-            if (workbench != null) part.SetWorkbenchCam(workbench.WorkbenchCamera);
+            if (workbench != null) 
+            {
+                part.SetWorkbenchCam(workbench.WorkbenchCamera);
+                part.SetTrashZone(workbench.TrashZone);
+            }
+
         }
 
         occupyingItem = item;

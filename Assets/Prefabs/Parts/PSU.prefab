@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 9087461345260872054}
   - component: {fileID: 2632815642104531778}
   - component: {fileID: 4489863129408360513}
+  - component: {fileID: -5176607385710502729}
   m_Layer: 6
   m_Name: PSU
   m_TagString: Untagged
@@ -131,6 +132,7 @@ MonoBehaviour:
   icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   groundOffset: 0.15
   placementRotation: {x: 0, y: 0, z: 0}
+  placementPositionOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &4489863129408360513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,6 +148,33 @@ MonoBehaviour:
   tableLayer:
     serializedVersion: 2
     m_Bits: 128
+--- !u!54 &-5176607385710502729
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3903076729602751242}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &2929705913849357135
 PrefabInstance:
   m_ObjectHideFlags: 0

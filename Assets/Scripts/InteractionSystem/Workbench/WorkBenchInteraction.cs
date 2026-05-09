@@ -8,6 +8,9 @@ public class WorkBenchInteraction : MonoBehaviour, IInteractable
     [SerializeField] private GameObject playerPromptCanvas;
     [SerializeField] private Camera workbenchCamera;
     [SerializeField] private WorkbenchSlot[] slots; 
+    [SerializeField] private TrashZone trashZone;
+    public TrashZone TrashZone => trashZone;
+
 
     private bool workbenchInteraction = false;
 
@@ -101,6 +104,7 @@ void Update()
             if (slot.occupyingItem == null) continue;
             if (slot.occupyingItem.TryGetComponent<DraggablePart>(out var part))
                 part.SetWorkbenchCam(cam);
+                part.SetTrashZone(cam != null ? trashZone : null); 
         }
     }
     // finds the nearest open slot and snaps part to it.

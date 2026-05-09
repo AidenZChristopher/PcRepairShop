@@ -17,7 +17,9 @@ public class DraggablePart : MonoBehaviour
     private Transform previousParent = null;
     private Vector3 originalScale; 
     private ItemData itemData;
+    private TrashZone trashZone = null;
 
+    public void SetTrashZone(TrashZone zone) => trashZone = zone;
 
     void Awake()
     {
@@ -121,6 +123,12 @@ void StopDrag()
 {
     isDragging = false;
 
+    if (trashZone != null && trashZone.IsOverlapping)
+        {
+            trashZone.TrashItem(gameObject);
+            return;
+        }
+        
     if (snapPoint != null && snapPoint.IsTouching && snapPoint.CurrentPartner != null)
     {
         Transform partnerParent = snapPoint.CurrentPartner.transform.parent;
