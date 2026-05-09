@@ -27,9 +27,11 @@ public class ItemData : MonoBehaviour, IInteractable
     [SerializeField] private string promptText;
     [SerializeField] private Sprite icon;
     [SerializeField] private float groundOffset = .25f; //default offset value
-    [SerializeField] private Vector3 placementRotation = Vector3.zero; //needed to rotate case 90 degrees on placement
+    [SerializeField] private Vector3 placementRotation = Vector3.zero; //rotate parts when placed on workbench
+    [SerializeField] private Vector3 placementPositionOffset = Vector3.zero; //offset parts when placed on workbench
     public float GroundOffset => groundOffset;
     public Quaternion PlacementRotation => Quaternion.Euler(placementRotation);
+    public Vector3 PlacementPositionOffset => placementPositionOffset;
 
     //  IInteractable Properties    //
     public string GetPromptText => promptText;

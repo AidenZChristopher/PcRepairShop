@@ -135,6 +135,7 @@ MonoBehaviour:
   icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   groundOffset: 0.4
   placementRotation: {x: 90, y: 0, z: -90}
+  placementPositionOffset: {x: 0, y: -0.2, z: 0}
 --- !u!114 &7398116108247353059
 MonoBehaviour:
   m_ObjectHideFlags: 0

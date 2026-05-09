@@ -15,13 +15,17 @@ public class DraggablePart : MonoBehaviour
     private WorkbenchSlot currentSlot;
     private SnapPoint snapPoint;
     private Transform previousParent = null;
-    private Vector3 originalScale; // added
+    private Vector3 originalScale; 
+    private ItemData itemData;
+
 
     void Awake()
     {
         snapPoint = GetComponentInChildren<SnapPoint>();
         previousParent = transform.parent;
-        originalScale = transform.localScale; // added
+        originalScale = transform.localScale;
+        itemData = GetComponent<ItemData>();
+
     }
 
     public void SetWorkbenchCam(Camera cam) => workbenchCam = cam;
@@ -98,7 +102,15 @@ public class DraggablePart : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, tableLayer))
         {
-            transform.position = new Vector3(hit.point.x, hit.point.y + 0.05f, hit.point.z);
+            Vector3 offset = itemData != null
+                ? itemData.PlacementPositionOffset
+                : new Vector3(0f, 0.05f, 0f);
+
+            transform.position = new Vector3(
+                hit.point.x + offset.x,
+                hit.point.y + offset.y,
+                hit.point.z + offset.z
+            );
         }
     }
 
