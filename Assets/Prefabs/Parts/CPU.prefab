@@ -35,7 +35,7 @@ Transform:
   m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7192607113484888211}
+  - {fileID: 3749650901251525921}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3353821504183274707
@@ -174,72 +174,93 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!1 &3930141713224021761
-GameObject:
+--- !u!1001 &4190863792294742012
+PrefabInstance:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7192607113484888211}
-  - component: {fileID: 618840696150825247}
-  - component: {fileID: 5937271357291551019}
-  m_Layer: 2
-  m_Name: SnapPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7192607113484888211
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3930141713224021761}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.4688, y: 1, z: 0.26371}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1897200189666447032}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &618840696150825247
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1897200189666447032}
+    m_Modifications:
+    - target: {fileID: 1018270684605074141, guid: b4bc35ec40f94c747a6000f8e365b614, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1018270684605074141, guid: b4bc35ec40f94c747a6000f8e365b614, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1018270684605074141, guid: b4bc35ec40f94c747a6000f8e365b614, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1018270684605074141, guid: b4bc35ec40f94c747a6000f8e365b614, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1018270684605074141, guid: b4bc35ec40f94c747a6000f8e365b614, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1018270684605074141, guid: b4bc35ec40f94c747a6000f8e365b614, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1018270684605074141, guid: b4bc35ec40f94c747a6000f8e365b614, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1018270684605074141, guid: b4bc35ec40f94c747a6000f8e365b614, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1018270684605074141, guid: b4bc35ec40f94c747a6000f8e365b614, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1018270684605074141, guid: b4bc35ec40f94c747a6000f8e365b614, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1018270684605074141, guid: b4bc35ec40f94c747a6000f8e365b614, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1018270684605074141, guid: b4bc35ec40f94c747a6000f8e365b614, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1018270684605074141, guid: b4bc35ec40f94c747a6000f8e365b614, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3364257774906575111, guid: b4bc35ec40f94c747a6000f8e365b614, type: 3}
+      propertyPath: m_Name
+      value: SnapPoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 6891088077832051035, guid: b4bc35ec40f94c747a6000f8e365b614, type: 3}
+      propertyPath: partType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6891088077832051035, guid: b4bc35ec40f94c747a6000f8e365b614, type: 3}
+      propertyPath: snapOffset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6891088077832051035, guid: b4bc35ec40f94c747a6000f8e365b614, type: 3}
+      propertyPath: snapOffset.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6891088077832051035, guid: b4bc35ec40f94c747a6000f8e365b614, type: 3}
+      propertyPath: compatibleType
+      value: 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b4bc35ec40f94c747a6000f8e365b614, type: 3}
+--- !u!4 &3749650901251525921 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1018270684605074141, guid: b4bc35ec40f94c747a6000f8e365b614, type: 3}
+  m_PrefabInstance: {fileID: 4190863792294742012}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3930141713224021761}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.55
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5937271357291551019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3930141713224021761}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5070012b2256daf4dab05dee742c61f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SnapPoint
-  partType: 1
-  compatibleType: 2
-  snapOffset: {x: 0, y: 0.3, z: 0}
