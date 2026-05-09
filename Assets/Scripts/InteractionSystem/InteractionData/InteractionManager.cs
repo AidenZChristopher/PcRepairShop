@@ -61,6 +61,8 @@ public class InteractionManager : MonoBehaviour
             var interactable = hit.GetComponentInParent<IInteractable>();
             if (interactable == null) continue;
 
+            if (interactable is MonoBehaviour mb && !mb.enabled) continue;
+
             float dist = Vector3.Distance(detectionPoint, hit.transform.position);
             if (dist < closestDist)
             {
@@ -68,7 +70,7 @@ public class InteractionManager : MonoBehaviour
                 closest = interactable;
             }
         }
-
+        
         if (closest != currentInteractable)
         {
             currentInteractable = closest;

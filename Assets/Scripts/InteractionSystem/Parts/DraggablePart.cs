@@ -117,36 +117,46 @@ public class DraggablePart : MonoBehaviour
     /*------------------------------------------------------------
      * StopDrag -- snaps if SnapPoint is touching compatible partner
      *------------------------------------------------------------*/
-    void StopDrag()
+void StopDrag()
+{
+    isDragging = false;
+
+    if (snapPoint != null && snapPoint.IsTouching && snapPoint.CurrentPartner != null)
     {
-        isDragging = false;
-
-        if (snapPoint != null && snapPoint.IsTouching && snapPoint.CurrentPartner != null)
+        Transform partnerParent = snapPoint.CurrentPartner.transform.parent;
+        if (partnerParent == null)
         {
-            Transform partnerParent = snapPoint.CurrentPartner.transform.parent;
-            if (partnerParent == null)
-            {
-                Debug.LogError($"[DraggablePart] Partner SnapPoint has no parent.");
-                return;
-            }
+            Debug.LogError($"[DraggablePart] Partner SnapPoint has no parent.");
+            return;
+        }
 
-            Vector3 targetWorldPos = snapPoint.CurrentPartner.transform.position + snapPoint.SnapOffset;
+        Vector3 targetWorldPos = snapPoint.CurrentPartner.transform.position + snapPoint.SnapOffset;
 
-            transform.SetParent(partnerParent, true);
+        transform.SetParent(partnerParent, true);
+        transform.position = targetWorldPos;
+        transform.localRotation = Quaternion.identity;
+        transform.localScale = originalScale;
 
-            transform.position = targetWorldPos;
+        isSnapped = true;
+        Debug.Log($"[DraggablePart] Snapped {gameObject.name} to {snapPoint.CurrentPartner.gameObject.name}");
+    }
+    else
+    {
+        // If not snapped finds the nearest workbench to snap to
+        WorkBenchInteraction workbench = FindFirstObjectByType<WorkBenchInteraction>();
+        WorkbenchSlot nearestSlot = workbench != null ? workbench.GetNearestOpenSlot(transform.position) : null;
 
-            transform.localRotation = Quaternion.identity;
-            transform.localScale = originalScale;
-
-            isSnapped = true;
-            Debug.Log($"[DraggablePart] Snapped {gameObject.name} to {snapPoint.CurrentPartner.gameObject.name}");
+        if (nearestSlot != null)
+        {
+            nearestSlot.PlaceItem(gameObject);
+            Debug.Log($"[DraggablePart] Re-registered {gameObject.name} into slot {nearestSlot.gameObject.name}");
         }
         else
         {
-            Debug.Log($"[DraggablePart] Dropped {gameObject.name} -- not touching compatible partner");
+            Debug.Log($"[DraggablePart] Dropped {gameObject.name} -- no open slot to register with");
         }
     }
+}
 
     /*------------------------------------------------------------
      * Unsnap -- right click to release

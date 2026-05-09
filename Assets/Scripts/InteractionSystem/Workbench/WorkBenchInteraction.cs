@@ -103,4 +103,24 @@ void Update()
                 part.SetWorkbenchCam(cam);
         }
     }
+    // finds the nearest open slot and snaps part to it.
+    public WorkbenchSlot GetNearestOpenSlot(Vector3 worldPosition)
+    {
+        WorkbenchSlot nearest = null;
+        float bestDistance = Mathf.Infinity;
+
+        foreach (WorkbenchSlot slot in slots)
+        {
+            if (slot.isOccupied) continue;
+
+            float distance = Vector3.Distance(worldPosition, slot.transform.position);
+            if (distance < bestDistance)
+            {
+                bestDistance = distance;
+                nearest = slot;
+            }
+        }
+
+        return nearest;
+    }
 }
