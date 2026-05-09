@@ -132,6 +132,7 @@ MonoBehaviour:
   icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   groundOffset: 0.18
   placementRotation: {x: 0, y: 90, z: 0}
+  placementPositionOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &1610110102971424871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,6 +242,10 @@ PrefabInstance:
     - target: {fileID: 6891088077832051035, guid: b4bc35ec40f94c747a6000f8e365b614, type: 3}
       propertyPath: partType
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6891088077832051035, guid: b4bc35ec40f94c747a6000f8e365b614, type: 3}
+      propertyPath: snapOffset.y
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 6891088077832051035, guid: b4bc35ec40f94c747a6000f8e365b614, type: 3}
       propertyPath: compatibleType
