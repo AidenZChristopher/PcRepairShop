@@ -362,7 +362,7 @@ MonoBehaviour:
   groundOffset: 0.4
   placementRotation: {x: 90, y: 0, z: -90}
   placementPositionOffset: {x: 0, y: -0.2, z: 0}
-  partType: 0
+  partType: 5
 --- !u!114 &7398116108247353059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -417,7 +417,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b68dfe0b5a6ed464f88026e1eb450c20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  requiredParts: 0100000003000000040000000600000009000000
+  requiredParts: 01000000020000000300000004000000
 --- !u!1 &4002003834453062661
 GameObject:
   m_ObjectHideFlags: 0

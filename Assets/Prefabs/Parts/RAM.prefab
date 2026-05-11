@@ -133,7 +133,7 @@ MonoBehaviour:
   groundOffset: 0.15
   placementRotation: {x: 90, y: 90, z: 0}
   placementPositionOffset: {x: 0, y: 0, z: 0}
-  partType: 4
+  partType: 3
 --- !u!114 &6596318703889318245
 MonoBehaviour:
   m_ObjectHideFlags: 0

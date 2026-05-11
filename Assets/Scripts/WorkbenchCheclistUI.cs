@@ -23,7 +23,9 @@ public class WorkbenchChecklistUI : MonoBehaviour
             Destroy(child.gameObject);
 
         foreach (PartType part in pcCase.RequiredParts)
-        {
+        {    
+            if (PartTypeHelper.IsHidden(part)) continue;
+
             GameObject entry = Instantiate(entryPrefab, entryContainer);
             ChecklistEntry entryScript = entry.GetComponent<ChecklistEntry>();
             Debug.Log($"[WorkbenchChecklistUI] Spawning entry for {part} -- entryScript null: {entryScript == null}");
