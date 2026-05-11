@@ -8,7 +8,6 @@ public enum PartType
     None,
     CPU,
     CPUSlot,
-    Motherboard,
     RAM,
     RAMSlot,
     GPU,

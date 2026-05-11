@@ -32,7 +32,8 @@ public class ItemData : MonoBehaviour, IInteractable
     public float GroundOffset => groundOffset;
     public Quaternion PlacementRotation => Quaternion.Euler(placementRotation);
     public Vector3 PlacementPositionOffset => placementPositionOffset;
-
+    [SerializeField] private PartType partType;
+    public PartType PartType => partType;
     //  IInteractable Properties    //
     public string GetPromptText => promptText;
     public Sprite Icon => icon;

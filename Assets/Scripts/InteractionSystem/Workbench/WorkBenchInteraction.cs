@@ -9,6 +9,8 @@ public class WorkBenchInteraction : MonoBehaviour, IInteractable
     [SerializeField] private Camera workbenchCamera;
     [SerializeField] private WorkbenchSlot[] slots; 
     [SerializeField] private TrashZone trashZone;
+    private PCCase activePCCase = null;
+
     public TrashZone TrashZone => trashZone;
 
 
@@ -26,32 +28,36 @@ public class WorkBenchInteraction : MonoBehaviour, IInteractable
         Open UI
     */
     public void Interact()
+{
+    if (!workbenchInteraction)
     {
-        if (!workbenchInteraction)
-        {
-            CameraManager.Instance.EnterWorkbench();
-            workbenchInteraction = true;
+        CameraManager.Instance.EnterWorkbench();
+        workbenchInteraction = true;
 
-            playerController.SetMovementEnabled(false); //disable player movements
-            playerController.SetVisibility(false);  //removes PlayerModel
-            playerPromptCanvas.SetActive(false);
-            NotifyDraggableParts(workbenchCamera); // pass cam to parts
+        playerController.SetMovementEnabled(false);
+        playerController.SetVisibility(false);
+        playerPromptCanvas.SetActive(false);
+        NotifyDraggableParts(workbenchCamera);
 
-            Debug.Log($"[WorkBenchInteraction] Working at Table");
-        }
-        else
-        {
-            CameraManager.Instance.ExitWorkbench();
-            workbenchInteraction = false;
+        if (activePCCase != null)
+            WorkbenchChecklistUI.Instance?.ShowChecklist(activePCCase);
 
-            playerController.SetMovementEnabled(true); //allows playermovement
-            playerController.SetVisibility(true); //Activates player model
-            playerPromptCanvas.SetActive(true);
-            NotifyDraggableParts(null); // clear cam on exit
-
-            Debug.Log($"[WorkBenchInteraction] leaving Table");
-        }
+        Debug.Log($"[WorkBenchInteraction] Working at Table");
     }
+    else
+    {
+        CameraManager.Instance.ExitWorkbench();
+        workbenchInteraction = false;
+
+        playerController.SetMovementEnabled(true);
+        playerController.SetVisibility(true);
+        playerPromptCanvas.SetActive(true);
+        WorkbenchChecklistUI.Instance?.HideChecklist();
+        NotifyDraggableParts(null);
+
+        Debug.Log($"[WorkBenchInteraction] leaving Table");
+    }
+}
 
 void Update()
 {
@@ -65,23 +71,20 @@ void Update()
     private void TryDropEquippedItem()
     {
         GameObject equippedItem = InventoryManager.Instance.GetEquippedItem();
-
-        if (equippedItem == null)
-        {
-            Debug.Log("[WorkBenchInteraction] No item equipped to drop.");
-            return;
-        }
+        if (equippedItem == null) { Debug.Log("[WorkBenchInteraction] No item equipped."); return; }
 
         WorkbenchSlot availableSlot = GetFirstOpenSlot();
-
-        if (availableSlot == null)
-        {
-            Debug.Log("[WorkBenchInteraction] No open slots on the table.");
-            return;
-        }
+        if (availableSlot == null) { Debug.Log("[WorkBenchInteraction] No open slots."); return; }
 
         availableSlot.PlaceItem(equippedItem);
         InventoryManager.Instance.RemoveEquippedItem();
+
+        PCCase pcCase = equippedItem.GetComponent<PCCase>();
+        if (pcCase != null)
+        {
+            activePCCase = pcCase;
+            WorkbenchChecklistUI.Instance?.ShowChecklist(pcCase);
+        }
 
         Debug.Log($"[WorkBenchInteraction] Dropped {equippedItem.name} onto table.");
     }
@@ -97,16 +100,18 @@ void Update()
     }
 
     //Passes the workbench camera to all parts currently on the table
-    private void NotifyDraggableParts(Camera cam)
+private void NotifyDraggableParts(Camera cam)
+{
+    foreach (WorkbenchSlot slot in slots)
     {
-        foreach (WorkbenchSlot slot in slots)
+        if (slot.occupyingItem == null) continue;
+        if (slot.occupyingItem.TryGetComponent<DraggablePart>(out var part))
         {
-            if (slot.occupyingItem == null) continue;
-            if (slot.occupyingItem.TryGetComponent<DraggablePart>(out var part))
-                part.SetWorkbenchCam(cam);
-                part.SetTrashZone(cam != null ? trashZone : null); 
+            part.SetWorkbenchCam(cam);
+            part.SetTrashZone(cam != null ? trashZone : null);
         }
     }
+}
     // finds the nearest open slot and snaps part to it.
     public WorkbenchSlot GetNearestOpenSlot(Vector3 worldPosition)
     {
@@ -126,5 +131,9 @@ void Update()
         }
 
         return nearest;
+    }
+    public void ClearActivePCCase()
+    {
+        activePCCase = null;
     }
 }

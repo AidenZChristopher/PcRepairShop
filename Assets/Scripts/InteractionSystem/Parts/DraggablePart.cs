@@ -115,20 +115,16 @@ public class DraggablePart : MonoBehaviour
             );
         }
     }
-
-    /*------------------------------------------------------------
-     * StopDrag -- snaps if SnapPoint is touching compatible partner
-     *------------------------------------------------------------*/
 void StopDrag()
 {
     isDragging = false;
 
     if (trashZone != null && trashZone.IsOverlapping)
-        {
-            trashZone.TrashItem(gameObject);
-            return;
-        }
-        
+    {
+        trashZone.TrashItem(gameObject);
+        return;
+    }
+
     if (snapPoint != null && snapPoint.IsTouching && snapPoint.CurrentPartner != null)
     {
         Transform partnerParent = snapPoint.CurrentPartner.transform.parent;
@@ -147,10 +143,15 @@ void StopDrag()
 
         isSnapped = true;
         Debug.Log($"[DraggablePart] Snapped {gameObject.name} to {snapPoint.CurrentPartner.gameObject.name}");
+
+        PCCase pcCase = partnerParent.GetComponentInParent<PCCase>();
+        if (pcCase != null)
+        {
+            if (itemData != null) pcCase.NotifyPartInstalled(itemData.PartType);
+        }
     }
     else
     {
-        // If not snapped finds the nearest workbench to snap to
         WorkBenchInteraction workbench = FindFirstObjectByType<WorkBenchInteraction>();
         WorkbenchSlot nearestSlot = workbench != null ? workbench.GetNearestOpenSlot(transform.position) : null;
 
@@ -165,7 +166,6 @@ void StopDrag()
         }
     }
 }
-
     /*------------------------------------------------------------
      * Unsnap -- right click to release
      *------------------------------------------------------------*/

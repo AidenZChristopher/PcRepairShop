@@ -25,8 +25,15 @@ public class TrashZone : MonoBehaviour
         Debug.Log($"[TrashZone] {other.gameObject.name} left trash zone");
     }
 
-    public void TrashItem(GameObject item)
+public void TrashItem(GameObject item)
     {
+        if (item.TryGetComponent<PCCase>(out var pcCase))
+        {
+            WorkbenchChecklistUI.Instance?.HideChecklist();
+            var workbench = FindFirstObjectByType<WorkBenchInteraction>();
+            if (workbench != null) workbench.ClearActivePCCase();
+        }
+
         Debug.Log($"[TrashZone] Trashed {item.name}");
         Destroy(item);
         isOverlapping = false;
